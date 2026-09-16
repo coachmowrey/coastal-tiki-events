@@ -239,6 +239,8 @@
   .expo-date .day{font-size:1.5rem;font-weight:700;line-height:1;}
   .expo-card h3{font-size:1.05rem;font-weight:600;}
   .expo-card p{color:var(--ink-soft);font-size:.9rem;margin-top:3px;}
+  .expo-list{display:flex;flex-direction:column;gap:14px;}
+  .expo-empty{color:var(--ink-soft);font-size:.95rem;}
 
   /* -------- contact -------- */
   .contact-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;}
@@ -479,13 +481,7 @@
         <span class="eyebrow">Catch us in person</span>
         <h2>On the road.</h2>
       </div>
-      <div class="expo-card reveal">
-        <div class="expo-date"><span class="mo">Jan</span><span class="day">17</span></div>
-        <div>
-          <h3>Volusia Bridal Expo &middot; 2027</h3>
-          <p>Come see the Razor Mirror Booth and Draw Me Bot in action and talk through your wedding-day package in person.</p>
-        </div>
-      </div>
+      <div class="expo-list reveal" id="expoList"></div>
     </div>
   </section>
 
@@ -669,6 +665,54 @@
   }
   window.addEventListener('hashchange', route);
   route();
+
+  // ---------- upcoming public appearances ----------
+  // Public events/markets/expos where the booth will be set up (not private
+  // bookings). Ask Claude to add, edit, or remove an entry here whenever a
+  // new appearance is booked or one wraps up. Order doesn't matter — sorted
+  // by date automatically, and past events drop off on their own.
+  // date: ISO "YYYY-MM-DD". link is optional (event page, ticket link, etc).
+  var UPCOMING_EVENTS = [
+    { date: '2027-01-17', title: 'Volusia Bridal Expo · 2027',
+      desc: 'Come see the Razor Mirror Booth and Draw Me Bot in action and talk through your wedding-day package in person.',
+      link: '' }
+  ];
+
+  var MONTH_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function renderExpoList(){
+    var list = document.getElementById('expoList');
+    if(!list) return;
+
+    var now = new Date();
+    now.setHours(0,0,0,0);
+
+    var upcoming = UPCOMING_EVENTS
+      .filter(function(ev){
+        var d = new Date(ev.date + 'T00:00:00');
+        return d >= now;
+      })
+      .sort(function(a,b){ return a.date.localeCompare(b.date); });
+
+    if(upcoming.length === 0){
+      list.innerHTML = '<p class="expo-empty">No public appearances on the calendar right now &mdash; check back soon, or book us directly for your own event.</p>';
+      return;
+    }
+
+    list.innerHTML = upcoming.map(function(ev){
+      var d = new Date(ev.date + 'T00:00:00');
+      var mo = MONTH_ABBR[d.getMonth()];
+      var day = d.getDate();
+      var titleHtml = ev.link
+        ? '<h3><a href="' + ev.link + '" target="_blank" rel="noopener">' + ev.title + '</a></h3>'
+        : '<h3>' + ev.title + '</h3>';
+      return '<div class="expo-card">'
+        + '<div class="expo-date"><span class="mo">' + mo + '</span><span class="day">' + day + '</span></div>'
+        + '<div>' + titleHtml + '<p>' + ev.desc + '</p></div>'
+        + '</div>';
+    }).join('');
+  }
+  renderExpoList();
 
   // ---------- calendar ----------
   // Dates already spoken for. Ask Claude to update this list whenever a new
