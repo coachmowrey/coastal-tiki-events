@@ -345,6 +345,14 @@
   .cal-legend .dot.open{background:var(--teal);}
   .cal-legend .dot.reserved{background:var(--sunset-orange);}
   .cal-legend .dot.today{background:var(--sunset-gold);}
+
+  section[id]{scroll-margin-top:64px;}
+  /* -------- videos -------- */
+  .vid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px;}
+  .vid-card{margin:0;border-radius:18px;overflow:hidden;background:#000;border:1px solid rgba(244,238,219,.18);box-shadow:0 22px 44px -24px rgba(0,0,0,.7);}
+  .vid-card video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000;object-fit:cover;}
+  .vid-card figcaption{background:rgba(244,238,219,.06);padding:14px 18px;font-size:.92rem;color:#dcebe8;}
+  .vid-card figcaption strong{display:block;font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#fff8ec;margin-bottom:2px;}
 </style>
 
 <header class="site">
@@ -354,6 +362,7 @@
       <span>Coastal Tiki Events</span>
     </a>
     <nav class="links">
+      <a href="#videos">Videos</a>
       <a href="#services">Experiences</a>
       <a href="#packages">Packages</a>
       <a href="#area">Service Area</a>
@@ -379,6 +388,25 @@
     </div>
   </section>
   <div class="rope-divider"></div>
+
+  <section id="videos" class="band-teal">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">See it in action</span>
+        <h2>Watch the party happen.</h2>
+        <p class="ink-soft">A quick look at what your guests get &mdash; tap play and turn the sound up.</p>
+      </div>
+      <div class="vid-grid">
+        <figure class="vid-card reveal">
+          <video controls playsinline preload="none" poster="media/mirror-booth-poster.jpg">
+            <source src="media/mirror-booth.mp4" type="video/mp4">
+            Your browser can&rsquo;t play this video.
+          </video>
+          <figcaption><strong>Razor Mirror Photo Booth</strong>Touch to start, strike a pose, and walk away with the print.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 
   <section id="services">
     <div class="wrap">
@@ -514,7 +542,7 @@
       <ol class="steps">
         <li><span class="step-num">1</span><div><h3>Pick your package &amp; date</h3><p>Check the calendar below for open dates, and see <a href="#packages" onclick="window.location.hash='#packages';return false;" style="color:var(--sunset-orange);font-weight:700;">packages &amp; pricing</a> to choose your lineup.</p></div></li>
         <li><span class="step-num">2</span><div><h3>Send your details</h3><p>Fill out the inquiry form with your event date, venue and guest count.</p></div></li>
-        <li><span class="step-num">3</span><div><h3>Confirm with a deposit</h3><p>A deposit holds your date on our calendar &mdash; see the policy below.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>Confirm with a deposit</h3><p>A $200 deposit holds your date on our calendar &mdash; see the policy below.</p></div></li>
         <li><span class="step-num">4</span><div><h3>We show up &amp; set up</h3><p>Half-hour setup and half-hour pack-up are already built into your package time.</p></div></li>
       </ol>
     </div>
@@ -528,12 +556,12 @@
         <p class="ink-soft">The basics &mdash; ask us anything else when you send your inquiry.</p>
       </div>
       <ul class="policy-list">
-        <li><strong>Deposit:</strong> a $100 deposit holds your date, applied to your total balance. <em>(placeholder &mdash; confirm your actual terms)</em></li>
+        <li><strong>Deposit:</strong> a $200 deposit holds your date, applied to your total balance.</li>
         <li><strong>Balance:</strong> remaining balance is due on the day of your event.</li>
         <li><strong>Travel:</strong> free within our Volusia County service area; beyond that, ask for a mileage quote.</li>
         <li><strong>Weather:</strong> outdoor bookings need a covered backup space &mdash; our gear runs on battery + Starlink, but not in the rain.</li>
         <li><strong>Overtime:</strong> extra time on the day is billed at your package's hourly rate, if our schedule allows.</li>
-        <li><strong>Cancellations:</strong> <em>(placeholder &mdash; tell us your policy and we'll drop it in here)</em></li>
+        <li><strong>Cancellations:</strong> cancel 48 hours or more before your event date for a full refund. Cancellations within 48 hours of the event receive a 50% refund.</li>
       </ul>
     </div>
   </section>
